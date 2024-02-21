@@ -12,6 +12,23 @@
                 </div>
             </div>
         </div>
+        @if (session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
+
+        @if (session('error'))
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
+            {{ session('error') }}
+            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        @endif
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table" width="100">
@@ -40,7 +57,8 @@
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-warning" href="{{url('/admin/buku/edit/'. $buku->id)}}">Edit</a>
-                                    <a class="btn btn-danger" href="#" onclick="confirmDelete('{{ $buku->id }}')">Hapus</a>
+                                    <a class="btn btn-danger" href="#"
+                                        onclick="confirmDelete('{{ $buku->id }}')">Hapus</a>
                                 </div>
                             </td>
                         </tr>
