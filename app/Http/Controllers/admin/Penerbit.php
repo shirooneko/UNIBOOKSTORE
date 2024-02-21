@@ -19,7 +19,7 @@ class Penerbit extends Controller
     {
         $data = [
             'page_title' => 'Penerbit',
-            'dataPenerbit' => $this->penerbit->getAllData()
+            'dataPenerbit' => PenerbitModel::all()
         ];
 
         return view('/admin/penerbit/penerbit-list', $data);
@@ -34,14 +34,15 @@ class Penerbit extends Controller
         return view('/admin/penerbit/penerbit-add', $data);
     }
 
+
     public function store(Request $request)
     {
         $validatedData = $request->validate([
-            'id_penerbit' => 'required|string|max:255',
-            'nama' => 'required|string|max:255',
-            'alamat' => 'required|string|max:255',
-            'kota' => 'required|string|max:255',
-            'telepon' => 'required|string|max:20',
+            'id_penerbit' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'kota' => 'required',
+            'telepon' => 'required',
         ]);
 
         $penerbit = new PenerbitModel();
@@ -53,7 +54,43 @@ class Penerbit extends Controller
 
         $penerbit->save();
 
-        return redirect()->route('penerbit.index')->with('success', 'Penerbit berhasil ditambahkan.');
+        return redirect('/admin/penerbit')->with('success', 'Penerbit berhasil ditambahkan.');
     }
+
+    public function edit($id)
+    {
+        $data = [
+            'page_title' => 'Penerbit',
+            'dataPenerbit' => PenerbitModel::findOrFail($id)
+
+        ];
+
+        return view('/admin/penerbit/penerbit-edit', $data);
+    }
+
+    public function update(Request $request)
+    {
+        $validatedData = $request->validate([
+            'id' => 'required',
+            'id_penerbit' => 'required',
+            'nama' => 'required',
+            'alamat' => 'required',
+            'kota' => 'required',
+            'telepon' => 'required',
+        ]);
+
+        $penerbit = PenerbitModel::findOrFail($validatedData['id']);
+
+        $penerbit->id_penerbit = $validatedData['id_penerbit'];
+        $penerbit->nama = $validatedData['nama'];
+        $penerbit->alamat = $validatedData['alamat'];
+        $penerbit->kota = $validatedData['kota'];
+        $penerbit->telepon = $validatedData['telepon'];
+
+        $penerbit->update();
+
+        return redirect('/admin/penerbit')->with('success', 'Data penerbit berhasil diperbarui.');
+    }
+
 
 }

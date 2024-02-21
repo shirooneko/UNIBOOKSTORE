@@ -19,12 +19,18 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", [Home::class, 'index']);
 
-Route::resource('penerbit', Penerbit::class)->only([
-    'index', 'store', 'edit', 'update', 'delete'
-]);
+
 
 Route::get('/admin/buku', [Buku::class, 'index']);
-Route::get('/buku/add', [Buku::class, 'add']);
+
 Route::get('/admin/penerbit', [Penerbit::class, 'index']);
+Route::get('/admin/penerbit/add', [Penerbit::class, 'add']);
+Route::post('/admin/penerbit/store', [Penerbit::class, 'store']);
+Route::get('/admin/penerbit/edit/{id}', [Penerbit::class, 'edit']);
+Route::post('/admin/penerbit/update', [Penerbit::class, 'update']);
+
+
+
+Route::get('/buku/add', [Buku::class, 'add']);
 Route::get('/penerbit/add', [Penerbit::class, 'add']);
 

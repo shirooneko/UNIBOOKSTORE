@@ -38,7 +38,7 @@
                     </a>
                 </li>
                 <li class="nav-item {{ $page_title === 'Penerbit' ? 'active' : '' }}">
-                    <a class="nav-link" href="{{ route('penerbit.index') }}"><i
+                    <a class="nav-link" href="{{ url('/admin/penerbit') }}"><i
                             class="far fa-address-book"></i>Penerbit</a>
                 </li>
                 <li class="nav-item">

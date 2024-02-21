@@ -6,7 +6,7 @@
             <h3>Tambah Data Penerbit</h3>
         </div>
         <div class="card-body">
-            <form action="{{ route('penerbit.index') }}" method="post">
+            <form action="{{ url('/penerbit/store') }}" method="post">
                 @csrf
                 <div class="mb-3">
                     <label for="id_penerbit" class="form-label">ID Penerbit</label>
