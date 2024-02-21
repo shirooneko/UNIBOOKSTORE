@@ -8,7 +8,7 @@
                     <h3>Data Buku</h3>
                 </div>
                 <div class="col-md-6 text-right">
-                    <a class="btn btn-primary" href="{{ url('/penerbit/add')}}">Tambah Data</a>
+                    <a class="btn btn-primary" href="{{ url('/admin/penerbit/add')}}">Tambah Data</a>
                 </div>
             </div>
         </div>
@@ -51,7 +51,7 @@
                             <td>
                                 <div class="btn-group">
                                     <a class="btn btn-warning" href="{{url('/admin/penerbit/edit/'. $penerbit->id)}}">Edit</a>
-                                    <a class="btn btn-danger" href="{{url('/delete/'. $penerbit->id)}}">Hapus</a>
+                                    <a class="btn btn-danger" href="#" onclick="confirmDelete('{{ $penerbit->id }}')">Hapus</a>
                                 </div>
                             </td>
                         </tr>
@@ -62,4 +62,12 @@
         </div>
     </div>
 </section>
+
+<script>
+    function confirmDelete(id) {
+        if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
+            window.location.href = "{{ url('/admin/penerbit/delete/') }}/" + id;
+        }
+    }
+</script>
 @endsection

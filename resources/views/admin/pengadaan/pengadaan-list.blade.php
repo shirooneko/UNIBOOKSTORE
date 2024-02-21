@@ -7,9 +7,6 @@
                 <div class="col-md-6">
                     <h3>Data Buku</h3>
                 </div>
-                <div class="col-md-6 text-right">
-                    <a class="btn btn-primary" href="{{ url('/buku/add')}}">Tambah Data</a>
-                </div>
             </div>
         </div>
         <div class="card-body">
@@ -39,8 +36,7 @@
                             <td>{{$buku->nama_penerbit}}</td>
                             <td>
                                 <div class="btn-group">
-                                    <a class="btn btn-warning" href="{{url('/admin/buku/edit/'. $buku->id)}}">Edit</a>
-                                    <a class="btn btn-danger" href="#" onclick="confirmDelete('{{ $buku->id }}')">Hapus</a>
+                                    <a class="btn btn-warning" href="{{url('/admin/pengadaan/updateStok/'. $buku->id)}}">Update Stok</a>
                                 </div>
                             </td>
                         </tr>
@@ -51,12 +47,4 @@
         </div>
     </div>
 </section>
-
-<script>
-    function confirmDelete(id) {
-        if (confirm('Apakah Anda yakin ingin menghapus data ini?')) {
-            window.location.href = "{{ url('/admin/buku/delete/') }}/" + id;
-        }
-    }
-</script>
 @endsection

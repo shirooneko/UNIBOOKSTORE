@@ -41,7 +41,7 @@
                     <a class="nav-link" href="{{ url('/admin/penerbit') }}"><i
                             class="far fa-address-book"></i>Penerbit</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item {{ $page_title === 'Pengadaan' ? 'active' : '' }}">
                     <a class="nav-link" href="{{ url('/admin/pengadaan') }}"><i class="far fa-clone"></i>Pengadaan</a>
                 </li>
                 </li>

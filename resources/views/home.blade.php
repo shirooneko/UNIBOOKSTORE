@@ -33,8 +33,12 @@
                         <h3 class="fw-bold">CARI BUKU : </h3>
                     </div>
                     <div class="col-md-4">
-                        <input type="text" name="searchBuku" id="" placeholder="cari berdasarkan nama"
-                            class="form-control">
+                        <form id="searchForm" class="mb-3">
+                            <div class="input-group">
+                                <input type="text" id="searchBuku" class="form-control"
+                                    placeholder="Cari berdasarkan nama buku...">
+                            </div>
+                        </form>
                     </div>
                 </div>
             </div>
@@ -52,7 +56,7 @@
                                 <th>Penerbit</th>
                             </tr>
                         </thead>
-                        <tbody>
+                        <tbody id="dataTableBody">
                             @foreach ($dataBuku as $buku)
                             <tr>
                                 <td>{{$loop->iteration}}</td>
@@ -61,7 +65,7 @@
                                 <td>{{$buku->nama_buku}}</td>
                                 <td>{{$buku->harga}}</td>
                                 <td>{{$buku->stok}}</td>
-                                <td>{{$buku->penerbit}}</td>
+                                <td>{{$buku->nama_penerbit}}</td>
                             </tr>
                             @endforeach
                         </tbody>
@@ -74,6 +78,42 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
         integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
         crossorigin="anonymous"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('#searchBuku').on('keyup', function () {
+                var searchTerm = $(this).val();
+                $.ajax({
+                    url: "{{ route('buku.search') }}",
+                    type: "GET",
+                    data: { searchBuku: searchTerm },
+                    success: function (response) {
+                        // Kosongkan isi tabel
+                        $('#dataTableBody').empty();
+
+                        // Iterasi melalui hasil pencarian dan tambahkan ke dalam tabel
+                        $.each(response, function (index, buku) {
+                            $('#dataTableBody').append('<tr>' +
+                                '<td>' + (index + 1) + '</td>' +
+                                '<td>' + buku.id_buku + '</td>' +
+                                '<td>' + buku.kategori + '</td>' +
+                                '<td>' + buku.nama_buku + '</td>' +
+                                '<td>' + buku.harga + '</td>' +
+                                '<td>' + buku.stok + '</td>' +
+                                '<td>' + buku.nama_penerbit + '</td>' +
+                                '</tr>');
+                        });
+                    },
+                    error: function (xhr) {
+                        console.log(xhr.responseText);
+                    }
+                });
+            });
+        });
+    </script>
+
+
 
 </body>
 

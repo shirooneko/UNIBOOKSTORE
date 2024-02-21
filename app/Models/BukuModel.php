@@ -9,7 +9,9 @@ class BukuModel extends Model
 {
     protected $table = 'buku';
     protected $primaryKey = 'id';
-    protected $fillable = ['id_penebit', 'kategori', 'nama_buku','harga','stok','penerbit_id'];
+    public $timestamps = false;
+
+    protected $fillable = ['id_penebit', 'kategori', 'nama_buku', 'harga', 'stok', 'penerbit_id'];
 
     public function getAllBuku()
     {
@@ -19,7 +21,23 @@ class BukuModel extends Model
     public function getAllBukuJoin()
     {
         return $this->join('penerbit', 'buku.penerbit_id', '=', 'penerbit.id')
-                    ->select('buku.*', 'penerbit.nama as nama_penerbit')
-                    ->get();
+            ->select('buku.*', 'penerbit.nama as nama_penerbit')
+            ->get();
     }
+
+    public function getAllBukuJoinStok()
+    {
+        return $this->join('penerbit', 'buku.penerbit_id', '=', 'penerbit.id')
+            ->select('buku.*', 'penerbit.nama as nama_penerbit')
+            ->orderBy('stok', 'asc')
+            ->get();
+    }
+
+    public static function searchByNamaBuku($searchTerm)
+    {
+        return static::with('penerbit')
+            ->where('nama_buku', 'like', '%' . $searchTerm . '%')
+            ->get();
+    }
+
 }

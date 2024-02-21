@@ -92,5 +92,15 @@ class Penerbit extends Controller
         return redirect('/admin/penerbit')->with('success', 'Data penerbit berhasil diperbarui.');
     }
 
+    public function delete($id)
+    {
+        $penerbit = PenerbitModel::findOrFail($id);
+
+        $penerbit->delete();
+
+        return redirect('/admin/penerbit')->with('success', 'Data penerbit berhasil dihapus.');
+    }
+
+
 
 }
