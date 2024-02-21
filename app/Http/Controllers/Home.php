@@ -16,6 +16,9 @@ class Home extends Controller
 
     public function index()
     {
-        return view('home');
+        $data = [
+            'dataBuku' => $this->buku->getAllBukuJoin(),
+        ];
+        return view('home', $data);
     }
 }

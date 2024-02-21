@@ -1,5 +1,8 @@
 <?php
-
+use App\Http\Controllers\Home;
+use App\Http\Controllers\Admin\Buku;
+use App\Http\Controllers\Admin\Penerbit;
+use App\Http\Controllers\Pengadaan;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +16,15 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get("/", [App\Http\Controllers\Home::class, 'index']);
-Route::get("/buku", [App\Http\Controllers\Buku::class, 'index']);
-Route::get("/pengadaan", [App\Http\Controllers\Pengadaan::class, 'index']);
+
+Route::get("/", [Home::class, 'index']);
+
+Route::resource('penerbit', Penerbit::class)->only([
+    'index', 'store', 'edit', 'update', 'delete'
+]);
+
+Route::get('/admin/buku', [Buku::class, 'index']);
+Route::get('/buku/add', [Buku::class, 'add']);
+Route::get('/admin/penerbit', [Penerbit::class, 'index']);
+Route::get('/penerbit/add', [Penerbit::class, 'add']);
+
